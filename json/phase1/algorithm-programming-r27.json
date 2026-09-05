@@ -1,0 +1,855 @@
+{
+  "meta": {
+    "schemaVersion": 1,
+    "version": "2026.09.06-r27",
+    "unitId": "algorithm-programming",
+    "unitTitle": "アルゴリズム・プログラミング",
+    "officialMiddleCodes": [
+      2
+    ],
+    "phase1Status": "pilot",
+    "source": "IPA 応用情報技術者試験シラバス Ver.7.2 / 2025年度公開問題",
+    "policy": "既存15 Lessonの本文・ID・URL・学習Storageを維持し、Phase 1共通Contract（重要度・頻出度・学習マップ・途中確認・公式問題導線）を補助データとして追加する。IPA範囲の補助トピック監査が残るためUnit完成扱いにしない。"
+  },
+  "lessons": [
+    {
+      "id": "ALG-01",
+      "importance": "high",
+      "frequency": "high",
+      "examFocus": "科目Aでは擬似言語の代入・条件分岐・繰返し・配列を正確に追う力、科目Bでは長い処理から状態変化を読み取る力が土台になります。",
+      "prerequisiteLessons": [
+        "FND-01"
+      ],
+      "relatedLessons": [
+        "ALG-02",
+        "ALG-03",
+        "PROG-01"
+      ],
+      "relatedTerms": [
+        "擬似言語",
+        "フローチャート",
+        "代入",
+        "条件分岐",
+        "繰返し",
+        "配列"
+      ],
+      "relatedPracticeRefs": [
+        "PC-ALG-01"
+      ],
+      "officialProblemRefs": [],
+      "inlineChecks": [
+        {
+          "id": "ALG-01-I1",
+          "afterSection": 2,
+          "prompt": "x ← 5 の後に x ← x - 2 を実行した。x はいくつか。",
+          "options": [
+            "2",
+            "3",
+            "5",
+            "7"
+          ],
+          "answerIndex": 1,
+          "explanation": "右辺は更新前の x=5 で計算し、5-2=3 を x に入れ直します。代入は数学の等号ではありません。"
+        },
+        {
+          "id": "ALG-01-I2",
+          "afterSection": 4,
+          "prompt": "配列 a=[2,5,8] を0番から数える。i=2 のとき a[i] はどれか。",
+          "options": [
+            "2",
+            "5",
+            "8",
+            "添字外"
+          ],
+          "answerIndex": 2,
+          "explanation": "0開始なら a[0]=2、a[1]=5、a[2]=8 です。擬似言語では添字の開始位置を問題文で確認します。"
+        }
+      ]
+    },
+    {
+      "id": "ALG-02",
+      "importance": "high",
+      "frequency": "high",
+      "examFocus": "ループ回数や入力サイズの増え方から計算量を読み、O(1)・O(log n)・O(n)・O(n log n)・O(n²)を比較する問題が中心です。",
+      "prerequisiteLessons": [
+        "ALG-01"
+      ],
+      "relatedLessons": [
+        "ALG-06",
+        "ALG-07",
+        "ALG-08"
+      ],
+      "relatedTerms": [
+        "時間計算量",
+        "空間計算量",
+        "オーダ記法",
+        "O(log n)",
+        "O(n log n)"
+      ],
+      "relatedPracticeRefs": [
+        "P-ALG-01"
+      ],
+      "officialProblemRefs": [
+        {
+          "examId": "AP-2025-SPRING-B",
+          "question": 3,
+          "label": "2025春 午後 問3（幅優先探索）"
+        },
+        {
+          "examId": "AP-2025-AUTUMN-B",
+          "question": 3,
+          "label": "2025秋 午後 問3（最長共通部分列）"
+        }
+      ],
+      "inlineChecks": [
+        {
+          "id": "ALG-02-I1",
+          "afterSection": 2,
+          "prompt": "n回のループの中で、毎回ちょうど10回だけ処理する。時間計算量はどれか。",
+          "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n²)"
+          ],
+          "answerIndex": 2,
+          "explanation": "処理回数は10nです。オーダ記法では定数係数10を無視するのでO(n)です。二重ループでも内側がnに依存しなければO(n²)とは限りません。"
+        },
+        {
+          "id": "ALG-02-I2",
+          "afterSection": 4,
+          "prompt": "入力サイズnを2倍にしたとき、O(n²)の代表的な処理量はおよそ何倍になるか。",
+          "options": [
+            "2倍",
+            "4倍",
+            "8倍",
+            "変わらない"
+          ],
+          "answerIndex": 1,
+          "explanation": "(2n)²=4n²なので約4倍です。オーダは入力が大きくなったときの増え方を比較する指標です。"
+        }
+      ]
+    },
+    {
+      "id": "ALG-03",
+      "importance": "high",
+      "frequency": "high",
+      "examFocus": "配列と連結リストの格納方法・アクセス・挿入削除の違いを、操作コストとポインタ更新から判断する問題につながります。",
+      "prerequisiteLessons": [
+        "ALG-01"
+      ],
+      "relatedLessons": [
+        "ALG-04",
+        "ALG-05",
+        "ALG-09"
+      ],
+      "relatedTerms": [
+        "配列",
+        "多次元配列",
+        "連結リスト",
+        "単方向リスト",
+        "循環リスト",
+        "ポインタ"
+      ],
+      "relatedPracticeRefs": [
+        "P-ALG-02"
+      ],
+      "officialProblemRefs": [],
+      "inlineChecks": [
+        {
+          "id": "ALG-03-I1",
+          "afterSection": 2,
+          "prompt": "配列で添字 i が分かっているとき、a[i] を直接読む操作の代表的な計算量はどれか。",
+          "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n²)"
+          ],
+          "answerIndex": 0,
+          "explanation": "配列は先頭位置と要素サイズから目的位置を計算できるため、添字が分かっていれば代表的にはO(1)でアクセスできます。"
+        },
+        {
+          "id": "ALG-03-I2",
+          "afterSection": 4,
+          "prompt": "連結リストの途中挿入が必ずO(1)とは言えない主な理由はどれか。",
+          "options": [
+            "挿入位置を探すのにO(n)かかる場合がある",
+            "ノードは並べ替えられない",
+            "ポインタは使えない",
+            "配列より必ず大きいから"
+          ],
+          "answerIndex": 0,
+          "explanation": "挿入位置のノード参照を既に持っていればポインタ変更はO(1)ですが、位置探索が必要ならその分の時間がかかります。"
+        }
+      ]
+    },
+    {
+      "id": "ALG-04",
+      "importance": "high",
+      "frequency": "medium",
+      "examFocus": "LIFO/FIFOの性質だけでなく、push・pop・enqueue・dequeue後の中身や、DFS/BFSとのつながりを判断できることが重要です。",
+      "prerequisiteLessons": [
+        "ALG-03"
+      ],
+      "relatedLessons": [
+        "ALG-08",
+        "ALG-10"
+      ],
+      "relatedTerms": [
+        "スタック",
+        "キュー",
+        "LIFO",
+        "FIFO",
+        "push",
+        "pop",
+        "enqueue",
+        "dequeue"
+      ],
+      "relatedPracticeRefs": [
+        "P-ALG-04"
+      ],
+      "officialProblemRefs": [],
+      "inlineChecks": [
+        {
+          "id": "ALG-04-I1",
+          "afterSection": 2,
+          "prompt": "A→B→Cの順にpushしたStackから1個popする。取り出されるのはどれか。",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "取り出せない"
+          ],
+          "answerIndex": 2,
+          "explanation": "StackはLIFO（後入れ先出し）なので、最後にpushしたCが最初に取り出されます。"
+        },
+        {
+          "id": "ALG-04-I2",
+          "afterSection": 4,
+          "prompt": "幅優先探索（BFS）で、先に見つけた頂点から順に処理するため基本的に使う構造はどれか。",
+          "options": [
+            "Stack",
+            "Queue",
+            "Hash Tableだけ",
+            "Binary Search"
+          ],
+          "answerIndex": 1,
+          "explanation": "BFSは近い頂点を発見順に処理するためFIFOのQueueを使います。DFSではStackや再帰が基本になります。"
+        }
+      ]
+    },
+    {
+      "id": "ALG-05",
+      "importance": "medium",
+      "frequency": "medium",
+      "examFocus": "ハッシュ値から格納位置を求め、衝突が起きる理由とチェイン法・オープンアドレス法の違いを具体例で説明できることが中心です。",
+      "prerequisiteLessons": [
+        "ALG-03"
+      ],
+      "relatedLessons": [
+        "ALG-06"
+      ],
+      "relatedTerms": [
+        "ハッシュ表",
+        "ハッシュ関数",
+        "衝突",
+        "チェイン法",
+        "オープンアドレス法"
+      ],
+      "relatedPracticeRefs": [
+        "PC-ALG-05"
+      ],
+      "officialProblemRefs": [],
+      "inlineChecks": [
+        {
+          "id": "ALG-05-I1",
+          "afterSection": 2,
+          "prompt": "h(k)=k mod 10 のとき、キー12と32の関係として正しいものはどれか。",
+          "options": [
+            "同じ添字2になり衝突する",
+            "12は2、32は3になる",
+            "必ず別の表へ入る",
+            "ハッシュ関数ではmodを使えない"
+          ],
+          "answerIndex": 0,
+          "explanation": "12 mod 10=2、32 mod 10=2なので同じ添字候補になります。ハッシュ表では衝突処理が必要です。"
+        },
+        {
+          "id": "ALG-05-I2",
+          "afterSection": 4,
+          "prompt": "チェイン法の説明として最も適切なのはどれか。",
+          "options": [
+            "同じ添字になった要素をリスト等でつなぐ",
+            "表全体を毎回並べ替える",
+            "衝突した要素を削除する",
+            "キーを暗号化して衝突を禁止する"
+          ],
+          "answerIndex": 0,
+          "explanation": "チェイン法は同じバケットに入る要素を連結リストなどで保持します。オープンアドレス法は別の空き位置を探します。"
+        }
+      ]
+    },
+    {
+      "id": "ALG-06",
+      "importance": "high",
+      "frequency": "high",
+      "examFocus": "線形探索と二分探索の前提・比較回数・終了条件を理解し、整列済みという条件を見落とさないことが重要です。",
+      "prerequisiteLessons": [
+        "ALG-02",
+        "ALG-03"
+      ],
+      "relatedLessons": [
+        "ALG-07",
+        "ALG-10"
+      ],
+      "relatedTerms": [
+        "線形探索",
+        "二分探索",
+        "番兵法",
+        "探索範囲",
+        "整列済み"
+      ],
+      "relatedPracticeRefs": [
+        "P-ALG-03",
+        "PX-ALG-01"
+      ],
+      "officialProblemRefs": [],
+      "inlineChecks": [
+        {
+          "id": "ALG-06-I1",
+          "afterSection": 2,
+          "prompt": "通常の二分探索をそのまま使うための重要な前提はどれか。",
+          "options": [
+            "対象が探索順序に従って整列されている",
+            "要素数が偶数",
+            "重複がない",
+            "必ず再帰で実装する"
+          ],
+          "answerIndex": 0,
+          "explanation": "中央要素との大小比較で探索範囲の半分を捨てられるのは、データが一定の順序で整列されているからです。"
+        },
+        {
+          "id": "ALG-06-I2",
+          "afterSection": 4,
+          "prompt": "要素数1024の整列済み配列で二分探索する。探索範囲を半分にし続ける回数の目安はどれか。",
+          "options": [
+            "約10回",
+            "約32回",
+            "約512回",
+            "約1024回"
+          ],
+          "answerIndex": 0,
+          "explanation": "1024=2^10なので、半分化を約10回行えば1要素まで絞れます。これがO(log n)の感覚です。"
+        }
+      ]
+    },
+    {
+      "id": "ALG-07",
+      "importance": "high",
+      "frequency": "high",
+      "examFocus": "各ソートの1周ごとの配列状態、計算量、安定性、追加領域などの比較軸を使って、状況に合う方式を判断する問題につながります。",
+      "prerequisiteLessons": [
+        "ALG-02",
+        "ALG-03"
+      ],
+      "relatedLessons": [
+        "ALG-08",
+        "ALG-09"
+      ],
+      "relatedTerms": [
+        "バブルソート",
+        "選択ソート",
+        "挿入ソート",
+        "クイックソート",
+        "マージソート",
+        "シェルソート",
+        "安定ソート"
+      ],
+      "relatedPracticeRefs": [
+        "PC-ALG-07"
+      ],
+      "officialProblemRefs": [],
+      "inlineChecks": [
+        {
+          "id": "ALG-07-I1",
+          "afterSection": 2,
+          "prompt": "安定ソートの性質として正しいものはどれか。",
+          "options": [
+            "同じキーの要素の元の相対順序を保つ",
+            "必ずO(n)で終わる",
+            "追加メモリを使わない",
+            "交換を行わない"
+          ],
+          "answerIndex": 0,
+          "explanation": "安定性は同じキーを持つ要素同士の順序を保つ性質です。時間計算量やメモリ使用量とは別の比較軸です。"
+        },
+        {
+          "id": "ALG-07-I2",
+          "afterSection": 4,
+          "prompt": "マージソートの代表的な時間計算量はどれか。",
+          "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n log n)",
+            "O(n²)だけ"
+          ],
+          "answerIndex": 2,
+          "explanation": "配列を分割する段数がlog n、各段で全体n要素を併合するため代表的にO(n log n)です。"
+        }
+      ]
+    },
+    {
+      "id": "ALG-08",
+      "importance": "high",
+      "frequency": "high",
+      "examFocus": "再帰の終了条件・呼出しスタックを追い、分割統治・動的計画法・貪欲法などの考え方を具体的な問題へ結び付ける力が重要です。",
+      "prerequisiteLessons": [
+        "ALG-01",
+        "ALG-02"
+      ],
+      "relatedLessons": [
+        "ALG-07",
+        "ALG-09",
+        "ALG-10"
+      ],
+      "relatedTerms": [
+        "再帰",
+        "基底条件",
+        "分割統治法",
+        "動的計画法",
+        "メモ化",
+        "貪欲法",
+        "バックトラッキング"
+      ],
+      "relatedPracticeRefs": [
+        "PX-ALG-02"
+      ],
+      "officialProblemRefs": [
+        {
+          "examId": "AP-2025-AUTUMN-B",
+          "question": 3,
+          "label": "2025秋 午後 問3（最長共通部分列）"
+        }
+      ],
+      "inlineChecks": [
+        {
+          "id": "ALG-08-I1",
+          "afterSection": 2,
+          "prompt": "再帰処理で最も重要な安全条件の一つはどれか。",
+          "options": [
+            "必ず終了へ近づく基底条件がある",
+            "関数名を短くする",
+            "配列を使わない",
+            "すべての処理を再帰にする"
+          ],
+          "answerIndex": 0,
+          "explanation": "基底条件がなく、または引数がそこへ近づかなければ無限再帰になり得ます。再帰は終了条件と状態変化をセットで追います。"
+        },
+        {
+          "id": "ALG-08-I2",
+          "afterSection": 4,
+          "prompt": "同じ部分問題を何度も解く再帰で、計算済み結果を保存して再利用する方法はどれか。",
+          "options": [
+            "メモ化",
+            "線形探索",
+            "ハッシュ衝突",
+            "FIFO"
+          ],
+          "answerIndex": 0,
+          "explanation": "メモ化は同じ入力の結果を保存して重複計算を避けます。動的計画法を理解する重要な入口です。"
+        }
+      ]
+    },
+    {
+      "id": "ALG-09",
+      "importance": "high",
+      "frequency": "medium",
+      "examFocus": "木の親子関係・深さ・部分木、二分探索木、ヒープ、走査順を図から読み、操作後の状態を追えることが重要です。",
+      "prerequisiteLessons": [
+        "ALG-03",
+        "ALG-08"
+      ],
+      "relatedLessons": [
+        "ALG-10"
+      ],
+      "relatedTerms": [
+        "木構造",
+        "二分木",
+        "二分探索木",
+        "ヒープ",
+        "B木",
+        "AVL木",
+        "Preorder",
+        "Inorder",
+        "Postorder"
+      ],
+      "relatedPracticeRefs": [
+        "PC-ALG-09"
+      ],
+      "officialProblemRefs": [],
+      "inlineChecks": [
+        {
+          "id": "ALG-09-I1",
+          "afterSection": 2,
+          "prompt": "二分探索木で現在ノードより小さいキーを探すとき、基本的にどちらへ進むか。",
+          "options": [
+            "左部分木",
+            "右部分木",
+            "必ず根へ戻る",
+            "どちらでも同じ"
+          ],
+          "answerIndex": 0,
+          "explanation": "二分探索木では左に小さいキー、右に大きいキーを配置する規則を利用して探索します。"
+        },
+        {
+          "id": "ALG-09-I2",
+          "afterSection": 4,
+          "prompt": "Preorder（行きがけ順）の基本順序はどれか。",
+          "options": [
+            "根→左→右",
+            "左→根→右",
+            "左→右→根",
+            "右→左→根"
+          ],
+          "answerIndex": 0,
+          "explanation": "Preorderはノードへ到着した時点で根を処理し、その後に左部分木、右部分木をたどります。"
+        }
+      ]
+    },
+    {
+      "id": "ALG-10",
+      "importance": "high",
+      "frequency": "high",
+      "examFocus": "グラフの頂点・辺・重みを整理し、DFS/BFSの訪問順やDijkstra/Bellman-Fordなど最短経路の更新を表で追う問題につながります。",
+      "prerequisiteLessons": [
+        "ALG-04",
+        "ALG-08",
+        "ALG-09"
+      ],
+      "relatedLessons": [
+        "ALG-08"
+      ],
+      "relatedTerms": [
+        "グラフ",
+        "深さ優先探索",
+        "幅優先探索",
+        "最短経路",
+        "Dijkstra法",
+        "Bellman-Ford法",
+        "重み"
+      ],
+      "relatedPracticeRefs": [
+        "PC-ALG-10"
+      ],
+      "officialProblemRefs": [
+        {
+          "examId": "AP-2025-SPRING-B",
+          "question": 3,
+          "label": "2025春 午後 問3（幅優先探索）"
+        }
+      ],
+      "inlineChecks": [
+        {
+          "id": "ALG-10-I1",
+          "afterSection": 2,
+          "prompt": "重みなしグラフで、始点からの最小辺数を求める基本探索はどれか。",
+          "options": [
+            "BFS",
+            "DFSだけ",
+            "二分探索",
+            "挿入ソート"
+          ],
+          "answerIndex": 0,
+          "explanation": "BFSは始点から距離の小さい層を順に処理するため、重みなしグラフの最小辺数を求められます。"
+        },
+        {
+          "id": "ALG-10-I2",
+          "afterSection": 4,
+          "prompt": "負の重みを含む可能性がある最短経路問題で、Dijkstra法を無条件に使えない理由はどれか。",
+          "options": [
+            "一度確定した距離が後でより小さくなる可能性がある",
+            "グラフに頂点がないから",
+            "BFSと同じだから",
+            "配列を使えないから"
+          ],
+          "answerIndex": 0,
+          "explanation": "Dijkstra法は非負重みを前提に距離確定を進めます。負辺がある場合はBellman-Ford法など別の方法を検討します。"
+        }
+      ]
+    },
+    {
+      "id": "ALG-11",
+      "importance": "medium",
+      "frequency": "medium",
+      "examFocus": "単純な文字列探索とKMP法・BM法の違いを、不一致時にどこまで比較を省略できるかという観点で理解します。",
+      "prerequisiteLessons": [
+        "ALG-01",
+        "ALG-03"
+      ],
+      "relatedLessons": [
+        "PROG-01"
+      ],
+      "relatedTerms": [
+        "文字列探索",
+        "KMP法",
+        "BM法",
+        "接頭辞",
+        "接尾辞",
+        "スキップ"
+      ],
+      "relatedPracticeRefs": [
+        "PC-ALG-11"
+      ],
+      "officialProblemRefs": [],
+      "inlineChecks": [
+        {
+          "id": "ALG-11-I1",
+          "afterSection": 2,
+          "prompt": "KMP法が不要な再比較を減らすために利用する情報はどれか。",
+          "options": [
+            "パターン自身の接頭辞・接尾辞の一致情報",
+            "データを毎回ソートした結果",
+            "CPU温度",
+            "暗号鍵"
+          ],
+          "answerIndex": 0,
+          "explanation": "KMP法はパターン自身の一致情報を前処理し、不一致時に既知の一致部分を無駄に比較し直さないようにします。"
+        },
+        {
+          "id": "ALG-11-I2",
+          "afterSection": 4,
+          "prompt": "BM法の特徴として適切な説明はどれか。",
+          "options": [
+            "パターン末尾側から比較し、不一致文字などを利用して大きくずらす",
+            "必ず先頭から1文字ずつしか進まない",
+            "文字列を数値へ変換するだけ",
+            "探索前に対象文字列を削除する"
+          ],
+          "answerIndex": 0,
+          "explanation": "BM法は末尾側から比較し、不一致情報を利用して照合位置を大きく進められる場合があります。"
+        }
+      ]
+    },
+    {
+      "id": "PROG-01",
+      "importance": "high",
+      "frequency": "high",
+      "examFocus": "順次・選択・繰返し、変数・データ型、演算子、ビット操作など、擬似言語や実コードを読むための基本を問う土台です。",
+      "prerequisiteLessons": [
+        "ALG-01",
+        "FND-01"
+      ],
+      "relatedLessons": [
+        "PROG-02",
+        "PROG-03"
+      ],
+      "relatedTerms": [
+        "変数",
+        "データ型",
+        "順次",
+        "選択",
+        "繰返し",
+        "while",
+        "do-while",
+        "ビットマスク"
+      ],
+      "relatedPracticeRefs": [
+        "PC-PROG-01"
+      ],
+      "officialProblemRefs": [],
+      "inlineChecks": [
+        {
+          "id": "PROG-01-I1",
+          "afterSection": 2,
+          "prompt": "条件を最初に判定するwhile型ループの特徴はどれか。",
+          "options": [
+            "本体が0回のことがある",
+            "必ず1回実行される",
+            "条件式を持てない",
+            "配列では使えない"
+          ],
+          "answerIndex": 0,
+          "explanation": "最初の条件が偽なら本体へ入らないため0回で終わることがあります。do-while型は本体の後に判定するので最低1回実行されます。"
+        },
+        {
+          "id": "PROG-01-I2",
+          "afterSection": 4,
+          "prompt": "フラグ値の特定bitだけを1に設定するとき、基本的に使う演算はどれか。",
+          "options": [
+            "OR",
+            "ANDだけ",
+            "除算",
+            "文字列連結"
+          ],
+          "answerIndex": 0,
+          "explanation": "設定したいbitが1のマスクとORを取ると、そのbitを1にできます。確認・解除ではANDやNOTも組み合わせます。"
+        }
+      ]
+    },
+    {
+      "id": "PROG-02",
+      "importance": "high",
+      "frequency": "medium",
+      "examFocus": "関数・手続・モジュール、引数、スコープ、値渡しと参照の影響を区別し、変更がどこへ波及するかを判断できることが重要です。",
+      "prerequisiteLessons": [
+        "PROG-01"
+      ],
+      "relatedLessons": [
+        "PROG-03",
+        "SYS-03"
+      ],
+      "relatedTerms": [
+        "関数",
+        "手続",
+        "引数",
+        "値渡し",
+        "参照",
+        "スコープ",
+        "モジュール",
+        "独立性"
+      ],
+      "relatedPracticeRefs": [
+        "P-ALG-05"
+      ],
+      "officialProblemRefs": [],
+      "inlineChecks": [
+        {
+          "id": "PROG-02-I1",
+          "afterSection": 2,
+          "prompt": "関数内のローカル変数について基本的に正しい説明はどれか。",
+          "options": [
+            "その関数やブロックの範囲で利用する",
+            "必ず全関数から直接見える",
+            "名前が同じなら必ず同じ実体",
+            "メモリを使わない"
+          ],
+          "answerIndex": 0,
+          "explanation": "ローカル変数は定義された関数・ブロックのスコープで利用します。同名でも別スコープなら別の変数になり得ます。"
+        },
+        {
+          "id": "PROG-02-I2",
+          "afterSection": 4,
+          "prompt": "引数の影響を判断するとき、変数名が同じかより優先して確認するものはどれか。",
+          "options": [
+            "渡し方と、再代入か参照先変更か",
+            "コメントの長さ",
+            "関数名の文字数",
+            "インデント幅だけ"
+          ],
+          "answerIndex": 0,
+          "explanation": "値そのもの・参照値の扱い、言語の引数渡し方式、関数内で何を変更するかが本質です。名前の一致だけでは判断できません。"
+        }
+      ]
+    },
+    {
+      "id": "PROG-03",
+      "importance": "medium",
+      "frequency": "medium",
+      "examFocus": "手続型・関数型・論理型・オブジェクト指向・スクリプト型などを、言語名暗記ではなく構造化・実行モデルの違いとして比較します。",
+      "prerequisiteLessons": [
+        "PROG-01",
+        "PROG-02"
+      ],
+      "relatedLessons": [
+        "PROG-04"
+      ],
+      "relatedTerms": [
+        "手続型",
+        "関数型",
+        "論理型",
+        "オブジェクト指向",
+        "スクリプト言語",
+        "ガーベジコレクション",
+        "ヒープ"
+      ],
+      "relatedPracticeRefs": [
+        "PC-PROG-03"
+      ],
+      "officialProblemRefs": [],
+      "inlineChecks": [
+        {
+          "id": "PROG-03-I1",
+          "afterSection": 2,
+          "prompt": "オブジェクト指向の説明として最も適切なのはどれか。",
+          "options": [
+            "データとそれを扱う振る舞いをオブジェクトとしてまとめて責務を分ける",
+            "必ず最速になる言語分類",
+            "関数を一切使えない",
+            "数値計算だけを行う"
+          ],
+          "answerIndex": 0,
+          "explanation": "オブジェクト指向はデータと振る舞いをオブジェクトへまとめ、責務・状態・操作の関係で構造化する考え方です。速度は別要因にも左右されます。"
+        },
+        {
+          "id": "PROG-03-I2",
+          "afterSection": 4,
+          "prompt": "ガーベジコレクションの主な役割はどれか。",
+          "options": [
+            "到達不能になった動的メモリ領域を回収する",
+            "CPU命令を暗号化する",
+            "ネットワーク経路を選ぶ",
+            "SQLを正規化する"
+          ],
+          "answerIndex": 0,
+          "explanation": "GCはプログラムから到達できなくなったオブジェクト等のメモリを回収し、手動解放の負担を減らす仕組みです。"
+        }
+      ]
+    },
+    {
+      "id": "PROG-04",
+      "importance": "medium",
+      "frequency": "medium",
+      "examFocus": "HTML・XML・CSS・JSON・YAMLなどが『何を表現する形式か』を比較し、構造・見た目・データ交換の役割を混同しないことが中心です。",
+      "prerequisiteLessons": [
+        "PROG-01"
+      ],
+      "relatedLessons": [
+        "UIM-01",
+        "SYS-03"
+      ],
+      "relatedTerms": [
+        "HTML",
+        "XML",
+        "CSS",
+        "JSON",
+        "YAML",
+        "XHTML",
+        "XSL",
+        "UML"
+      ],
+      "relatedPracticeRefs": [
+        "PC-PROG-04"
+      ],
+      "officialProblemRefs": [],
+      "inlineChecks": [
+        {
+          "id": "PROG-04-I1",
+          "afterSection": 2,
+          "prompt": "HTMLとCSSの役割の組合せとして適切なのはどれか。",
+          "options": [
+            "HTMLは文書構造・意味、CSSは見た目・配置",
+            "HTMLは暗号、CSSはDB",
+            "HTMLはCPU命令、CSSはRouting",
+            "両方とも画像圧縮形式"
+          ],
+          "answerIndex": 0,
+          "explanation": "HTMLは文書の構造や意味を表し、CSSはその表示・配置・見た目を指定します。役割を分けて理解します。"
+        },
+        {
+          "id": "PROG-04-I2",
+          "afterSection": 4,
+          "prompt": "JSONの特徴として適切なのはどれか。",
+          "options": [
+            "オブジェクトや配列などのデータを軽量なテキスト形式で表現する",
+            "Webページの見た目だけを指定する",
+            "動画を圧縮する",
+            "CPUの命令セットを定義する"
+          ],
+          "answerIndex": 0,
+          "explanation": "JSONはデータ交換・保存で広く使われるテキスト形式です。HTMLの文書構造やCSSの表示指定とは役割が異なります。"
+        }
+      ]
+    }
+  ]
+}

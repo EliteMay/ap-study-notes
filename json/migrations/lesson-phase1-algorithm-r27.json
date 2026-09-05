@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "schemaVersion": 1,
+    "id": "lesson-phase1-algorithm-r27",
+    "sourceBuild": "2026.09.05-r26",
+    "targetBuild": "2026.09.06-r27",
+    "scope": "algorithm-programming-pilot",
+    "status": "identity-only",
+    "storageKeysChanged": false,
+    "urlContractChanged": false,
+    "note": "Algorithm / Programming 15 LessonのPhase 1化では、本文改善用の補助Contractだけを追加し、Lesson ID・Unit ID・lesson.html?id=<ID> URL・既存学習進捗Keyを変更しない。将来merge/splitする場合は別Migrationを追加する。"
+  },
+  "lessonMappings": [
+    {"from":"ALG-01","to":["ALG-01"],"strategy":"identity"},
+    {"from":"ALG-02","to":["ALG-02"],"strategy":"identity"},
+    {"from":"ALG-03","to":["ALG-03"],"strategy":"identity"},
+    {"from":"ALG-04","to":["ALG-04"],"strategy":"identity"},
+    {"from":"ALG-05","to":["ALG-05"],"strategy":"identity"},
+    {"from":"ALG-06","to":["ALG-06"],"strategy":"identity"},
+    {"from":"ALG-07","to":["ALG-07"],"strategy":"identity"},
+    {"from":"ALG-08","to":["ALG-08"],"strategy":"identity"},
+    {"from":"ALG-09","to":["ALG-09"],"strategy":"identity"},
+    {"from":"ALG-10","to":["ALG-10"],"strategy":"identity"},
+    {"from":"ALG-11","to":["ALG-11"],"strategy":"identity"},
+    {"from":"PROG-01","to":["PROG-01"],"strategy":"identity"},
+    {"from":"PROG-02","to":["PROG-02"],"strategy":"identity"},
+    {"from":"PROG-03","to":["PROG-03"],"strategy":"identity"},
+    {"from":"PROG-04","to":["PROG-04"],"strategy":"identity"}
+  ],
+  "storage": {
+    "lessonProgressKey": "ap-study-lesson-progress-v1",
+    "practiceHistoryKey": "ap-study-practice-history-v1",
+    "caseHistoryKey": "ap-study-case-history-v1",
+    "mockHistoryKey": "ap-study-mock-history-v1"
+  }
+}

@@ -22,7 +22,7 @@ try {
   const projectMeta = await (await fetch(`${base}/json/project-meta.json`)).json();
   if (!projectMeta?.build) throw new Error('project-meta build missing');
   if (projectMeta?.app !== 'AP Study Guide') throw new Error('current product name not adopted');
-  if (projectMeta?.guide?.version !== '1.16.0') throw new Error('latest guide version not adopted');
+  if (projectMeta?.guide?.version !== '1.17.0') throw new Error('latest guide version not adopted');
   if (!(projectMeta?.profiles || []).includes('LEARNING')) throw new Error('LEARNING project profile missing');
   if (projectMeta?.phase?.active !== 1 || projectMeta?.phase?.status !== 'in-progress') throw new Error('Phase 1 state metadata missing');
   if (projectMeta?.visual?.direction !== 'friendly-study-dashboard') throw new Error('friendly visual direction metadata missing');

@@ -13,12 +13,13 @@ for (const file of [
   'html/unit.html','js/unit.js','css/unit.css',
   'html/data.html','js/data-tools.js','css/data-tools.css',
   'html/diagnostics.html','js/diagnostics-view.js','css/diagnostics.css',
-  'html/search.html','js/search.js','css/search.css'
+  'html/search.html','js/search.js','css/search.css',
+  'json/phase1/index.json','js/lesson-phase1.js','css/lesson-phase1.css'
 ]) if (!exists(file)) fail(`missing ${file}`);
 
 const meta = json('json/project-meta.json');
 if (meta.app !== 'AP Study Guide' || !/^\d{4}\.\d{2}\.\d{2}-r\d+$/.test(String(meta.build || ''))) fail('project-meta app/build invalid');
-if (meta.guide?.repository !== 'EliteMay/web-project-guide' || meta.guide?.version !== '1.16.0' || meta.guide?.adoptedAt !== '2026-09-05') fail('web-project-guide adoption metadata mismatch');
+if (meta.guide?.repository !== 'EliteMay/web-project-guide' || meta.guide?.version !== '1.17.0' || meta.guide?.adoptedAt !== '2026-09-06') fail('web-project-guide adoption metadata mismatch');
 for (const profile of ['STATIC','DATA','LEARNING','TOOL','PUBLIC-CONTENT']) if (!(meta.profiles || []).includes(profile)) fail(`project profile missing ${profile}`);
 if (meta.deployment?.target !== 'GitHub Pages' || Number(meta.storage?.backupSchemaVersion) !== 1) fail('deployment/storage metadata mismatch');
 if (Number(meta.diagnostics?.schemaVersion) !== 1 || meta.diagnostics?.storageKey !== 'ap-study-diagnostics-v1' || meta.diagnostics?.localOnly !== true || Number(meta.diagnostics?.maxBreadcrumbs) !== 100) fail('diagnostics metadata mismatch');
@@ -81,6 +82,9 @@ const lesson = read('js/lesson.js');
 if (!lesson.includes('LESSON_PASS_RATIO') || !lesson.includes('completed:passed')) fail('lesson completion is not pass-threshold based');
 const lessonPractice = read('js/lesson-practice.js');
 for (const required of ['APPracticeData.load','APLessonData.load','dataset.practiceFallback','practice.html?unit=','cases.html?unit=']) if (!lessonPractice.includes(required)) fail(`lesson practice fallback missing ${required}`);
+const phaseRuntime = read('js/lesson-phase1.js');
+for (const required of ['PHASE1_INDEX_PATH','loadPhase1Index','loadPhase1Overlay','applyPhase1Overlay','phase1Payloads']) if (!phaseRuntime.includes(required)) fail(`Phase 1 lazy enhancement runtime missing ${required}`);
+if (phaseRuntime.includes('no-store')) fail('Phase 1 enhancement loader disables browser cache');
 
 const coverage = json('json/curriculum/ap-2026-coverage.json');
 const curriculum = json('json/curriculum/ap-2026-map.json');
@@ -133,4 +137,4 @@ if (diagnosticsView.includes('innerHTML')) fail('diagnostics view must not rende
 const notFound = read('404.html');
 for (const required of ['<html lang="ja">','ページが見つかりません','/ap-study-guide/','/ap-study-guide/html/roadmap.html','meta name="robots" content="noindex"']) if (!notFound.includes(required)) fail(`404 recovery missing ${required}`);
 
-console.log(`[runtime-quality] OK: ${meta.build} / guide ${meta.guide.version} / visual ${meta.visual.direction} / profiles ${meta.profiles.join('+')} / centralized metadata, high visual baseline, Unit Hub, cross-search, local diagnostics, public recovery, safe backup restore.`);
+console.log(`[runtime-quality] OK: ${meta.build} / guide ${meta.guide.version} / visual ${meta.visual.direction} / profiles ${meta.profiles.join('+')} / centralized metadata, high visual baseline, Unit Hub, cross-search, lazy Phase 1 overlays, local diagnostics, public recovery, safe backup restore.`);

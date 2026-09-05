@@ -41,14 +41,19 @@
   - 重要度 / 頻出度
   - APでの見られ方
   - 前提 / 関連Lesson
-  - 関連用語
-  - 関連短問
-  - 公開公式問題Mapping（存在するもの）
+  - 関連用語 / 関連短問 / 公開公式問題Mapping
   - 学習途中の小確認
-  - 末尾3〜5問の確認問題
-- `json/migrations/lesson-phase1-r26.json` による旧ID / URL / Storage互換Contract
+- アルゴリズム・プログラミング `ALG-01`〜`ALG-11` / `PROG-01`〜`PROG-04` のPhase 1 Pilot
+  - 既存本文・ID・URL・Storageを維持
+  - 重要度 / 頻出度 / APでの見られ方
+  - 前提 / 関連Lesson / 関連用語 / Practice / Official Mapping
+  - Lesson途中の小確認を2問ずつ追加
+  - Phase 1補助Dataは `json/phase1/` から必要Unitだけ遅延読込
+  - 旧Algorithm Auditを再照合し、解消済み範囲と補助範囲Reviewを分離
+- Foundation / Algorithmとも末尾確認問題による現行Progress判定は維持
+- `json/migrations/lesson-phase1-r26.json` / `json/migrations/lesson-phase1-algorithm-r27.json` による旧ID / URL / Storage互換Contract
 
-**基礎理論Pilotは完成扱いではありません。** 現在の公開公式問題Mappingでは `FND-07` 以外の基礎理論Lessonに直接対応する収録済み公式問題が不足しているため、`phase1Status: pilot` のままです。
+**現在のPhase 1 Pilotは完成扱いではありません。** Foundationは公開公式問題の直接Mapping不足、Algorithm / Programmingは補助範囲Reviewと公開公式問題の直接Mapping不足が残るため、どちらも `pilot / in-progress` を維持します。
 
 ## 学習の基本導線
 
@@ -112,16 +117,12 @@
 - `json/lessons/lesson-index.json`
 - `json/lessons/lesson-index-expansion.json`
 - Loader: `js/lesson-data.js`
+- Phase 1補助Manifest: `json/phase1/index.json`
+- Phase 1補助Runtime: `js/lesson-phase1.js`
 
-Phase 1 Pilot対象:
+Foundation Pilotは各Foundation Lesson JSONへPhase 1 Metadataを保持します。
 
-- `json/lessons/foundation/fnd-01-bit-logic.json`
-- `json/lessons/foundation/fnd-02-number-representation.json`
-- `json/lessons/foundation/fnd-03-discrete-math.json`
-- `json/lessons/foundation/fnd-04-probability-statistics.json`
-- `json/lessons/foundation/fnd-05-information-coding.json`
-- `json/lessons/foundation/fnd-06-queueing-communication.json`
-- `json/lessons/foundation/fnd-07-measurement-control.json`
+Algorithm / Programming Pilotは既存15 Lesson本文を変更せず、`json/phase1/algorithm-programming-r27.json` からPhase 1補助Contractを遅延Overlayします。
 
 ### Practice
 
@@ -148,9 +149,10 @@ Home初期表示で全Terms / Practice / Official Dataを追加読込せず、�
 
 ### Migration
 
-- Phase 1 Pilot Contract: `json/migrations/lesson-phase1-r26.json`
+- Foundation Pilot: `json/migrations/lesson-phase1-r26.json`
+- Algorithm / Programming Pilot: `json/migrations/lesson-phase1-algorithm-r27.json`
 
-r26では `FND-01`〜`FND-07` のID・URL・Unit ID・既存学習Storage Keyを変更していません。将来merge / splitする場合は新しいMigration Contractを追加します。
+いずれも現時点ではIdentity Migrationです。Lesson ID・URL・Unit ID・既存学習Storage Keyを変更していません。将来merge / splitする場合は新しいMigration Contractを追加します。
 
 ## 学習状態 / 保存互換
 
@@ -196,14 +198,18 @@ Workflow: `.github/workflows/validate.yml`
 - Search wiring
 - Project metadata / LEARNING Profile
 - Phase 1 Foundation Pilot Contract
+- Phase 1 Algorithm / Programming Pilot Contract
 - Legacy ID / URL / Storage identity migration
 - PUBLIC-CONTENT Metadata
 - Playwright Browser Smoke
+- Algorithm Phase 1 Browser Smoke
 - Visual Review screenshot生成
 
-Phase 1 Pilot専用Validator:
+Phase 1専用Validator:
 
-`tests/validate-phase1-foundation.mjs`
+- `tests/validate-phase1-foundation.mjs`
+- `tests/validate-phase1-algorithm.mjs`
+- `tests/e2e-phase1-algorithm.mjs`
 
 ## Documentation
 

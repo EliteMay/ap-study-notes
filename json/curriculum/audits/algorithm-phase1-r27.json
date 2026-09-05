@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "schemaVersion": 1,
+    "auditVersion": "2026-09-06-r27",
+    "unitId": "algorithm-programming",
+    "officialMiddleCode": 2,
+    "syllabusVersion": "7.2",
+    "status": "pilot",
+    "sourceAudit": "json/curriculum/audits/algorithm-audit.json",
+    "policy": "2026-08-29の旧不足一覧を現行15 Lessonへ再照合した結果を記録する。既に本文へ入った主要項目と、今後の補助範囲Reviewを分け、未確認範囲を理由なくComplete扱いしない。"
+  },
+  "resolvedSinceLegacyAudit": [
+    {
+      "area": "代表ソート",
+      "evidenceLessons": ["ALG-07"],
+      "items": ["シェルソート", "安定性", "内部ソート / 外部ソート"]
+    },
+    {
+      "area": "グラフ / 最短経路",
+      "evidenceLessons": ["ALG-10"],
+      "items": ["DFS", "BFS", "Dijkstra法", "Bellman-Ford法"]
+    },
+    {
+      "area": "文字列探索",
+      "evidenceLessons": ["ALG-11"],
+      "items": ["KMP法", "BM法"]
+    },
+    {
+      "area": "プログラミング基礎",
+      "evidenceLessons": ["PROG-01", "PROG-02"],
+      "items": ["順次・選択・繰返し", "変数とデータ型", "関数・手続", "引数", "スコープ", "モジュール化"]
+    },
+    {
+      "area": "プログラム言語",
+      "evidenceLessons": ["PROG-03"],
+      "items": ["主要パラダイム", "BNF / EBNF", "ヒープ", "ガーベジコレクション"]
+    },
+    {
+      "area": "記述 / データ言語",
+      "evidenceLessons": ["PROG-04"],
+      "items": ["HTML", "XML", "CSS", "JSON", "YAML", "XHTML", "XSL", "UML"]
+    }
+  ],
+  "pendingReview": [
+    {
+      "area": "アルゴリズム設計",
+      "priority": "standard",
+      "items": ["決定表"],
+      "reason": "現行Lessonの中心テーマへ入れるか、システム開発側とのCross-unit参照にするかを要Review。"
+    },
+    {
+      "area": "ファイル処理",
+      "priority": "standard",
+      "items": ["ファイル処理", "コントロールブレーク"],
+      "reason": "独立Lesson化ではなく代表例・Practiceで扱う方が適切かを要Review。"
+    },
+    {
+      "area": "発展アルゴリズム",
+      "priority": "reference",
+      "items": ["近似アルゴリズム", "確率的アルゴリズム / モンテカルロ法", "遺伝的アルゴリズム", "自然言語処理の代表処理"],
+      "reason": "シラバス範囲として追跡するが、初心者向け主要Lessonと同じ深さを機械的に要求しない。"
+    },
+    {
+      "area": "Cross-unit候補",
+      "priority": "reference",
+      "items": ["ランレングス法 / ハフマン法", "Zバッファ / スキャンライン / レイトレーシング", "メモリ管理アルゴリズム"],
+      "reason": "基礎理論・UI/情報メディア・コンピュータシステムとの主教材責務を確認してから重複を避けて接続する。"
+    }
+  ],
+  "completionBlockers": [
+    "pendingReviewが未解消",
+    "2025公開公式問題への直接Mappingが一部Lessonに限られる",
+    "全15 LessonのPhase 1表示・参照整合・PC/Smartphone実表示Validationが必要"
+  ]
+}

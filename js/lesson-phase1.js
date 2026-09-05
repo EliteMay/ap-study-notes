@@ -1,11 +1,14 @@
 (() => {
   'use strict';
 
+  const PHASE1_INDEX_PATH = 'json/phase1/index.json';
   const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const LEVEL_LABELS = {
     high:'高', medium:'中', low:'低',
     veryHigh:'非常に高い', veryLow:'非常に低い'
   };
+  let phase1IndexPromise = null;
+  const phase1Payloads = new Map();
 
   function requestedLessonId() {
     return (new URLSearchParams(location.search).get('id') || '').trim().toUpperCase();
@@ -25,6 +28,38 @@
     if (!entry) return null;
     const lesson = await fetchJson(entry.file);
     return { entry, lesson, lessons };
+  }
+
+  async function loadPhase1Index() {
+    if (!phase1IndexPromise) {
+      phase1IndexPromise = fetchJson(PHASE1_INDEX_PATH).catch(() => ({ units:[] }));
+    }
+    return phase1IndexPromise;
+  }
+
+  async function loadPhase1Overlay(entry) {
+    const index = await loadPhase1Index();
+    const unitRef = (index.units || []).find(item => item.unitId === entry.unitId);
+    if (!unitRef?.file) return null;
+    if (!phase1Payloads.has(unitRef.file)) phase1Payloads.set(unitRef.file, fetchJson(unitRef.file));
+    const payload = await phase1Payloads.get(unitRef.file);
+    const row = (payload.lessons || []).find(item => item.id === entry.id);
+    if (!row) return null;
+    return { ...row, phase1Status:row.phase1Status || payload.meta?.phase1Status || unitRef.status || '' };
+  }
+
+  function applyPhase1Overlay(lesson, overlay) {
+    if (!overlay) return lesson;
+    const fields = [
+      'importance','frequency','examFocus','prerequisiteLessons','relatedLessons',
+      'relatedTerms','relatedPracticeRefs','officialProblemRefs','phase1Status'
+    ];
+    lesson.meta = { ...(lesson.meta || {}) };
+    for (const field of fields) {
+      if (Object.prototype.hasOwnProperty.call(overlay, field)) lesson.meta[field] = overlay[field];
+    }
+    if (Array.isArray(overlay.inlineChecks)) lesson.inlineChecks = overlay.inlineChecks;
+    return lesson;
   }
 
   function waitForRenderedLesson(timeout = 5000) {
@@ -52,6 +87,7 @@
     if (meta.frequency) chips.push(`頻出度 ${LEVEL_LABELS[meta.frequency] || meta.frequency}`);
     if (meta.phase1Status === 'pilot') chips.push('Phase 1 再編中');
     for (const text of chips) {
+      if ([...row.children].some(node => node.textContent === text)) continue;
       const span = document.createElement('span');
       span.className = 'lesson-phase1-chip';
       span.textContent = text;
@@ -84,7 +120,7 @@
       const query = typeof term === 'string' ? term : (term.query || term.label);
       return `<a href="search.html?q=${encodeURIComponent(query || label)}">${escapeHtml(label)}</a>`;
     }).join('')}</div></div>`);
-    if (practice.length) groups.push(`<div class="lesson-connection-group"><strong>直接つながる短問</strong><div class="lesson-link-list">${practice.map(ref => `<a href="practice.html?unit=${encodeURIComponent(meta.unitId || '')}&question=${encodeURIComponent(ref)}">${escapeHtml(ref)}</a>`).join('')}</div></div>`);
+    if (practice.length) groups.push(`<div class="lesson-connection-group"><strong>直接つながる短問</strong><div class="lesson-link-list">${practice.map(ref => `<a href="practice.html?question=${encodeURIComponent(ref)}&unit=${encodeURIComponent(meta.unitId || '')}">${escapeHtml(ref)}</a>`).join('')}</div></div>`);
     if (official.length) groups.push(`<div class="lesson-connection-group"><strong>関連する公開公式問題</strong><div class="lesson-link-list">${official.map(ref => `<a href="official-past.html">${escapeHtml(ref.label || `${ref.examId} 問${ref.question}`)}</a>`).join('')}</div></div>`);
 
     return `<section class="lesson-block lesson-connections"><div class="lesson-connection-heading"><div><p class="lesson-phase1-kicker">LEARNING MAP</p><h2>このLessonの位置づけ</h2></div><a href="search.html?q=${encodeURIComponent(meta.id || '')}">関連項目を検索</a></div><div class="lesson-connection-grid">${groups.join('')}</div></section>`;
@@ -130,13 +166,15 @@
     try {
       const loaded = await loadCurrentLesson();
       if (!loaded) return;
-      const { lesson, lessons } = loaded;
+      const { entry, lessons } = loaded;
+      const overlay = await loadPhase1Overlay(entry);
+      const lesson = applyPhase1Overlay(loaded.lesson, overlay);
       const rendered = await waitForRenderedLesson();
       if (!rendered) return;
       document.title = `${lesson.meta?.title || '学習教材'} | AP Study Guide`;
       addMetaChips(lesson);
       const connections = renderConnections(lesson, lessons);
-      if (connections) document.getElementById('lesson-sections')?.insertAdjacentHTML('afterbegin', connections);
+      if (connections && !document.querySelector('.lesson-connections')) document.getElementById('lesson-sections')?.insertAdjacentHTML('afterbegin', connections);
       insertInlineChecks(lesson);
     } catch (error) {
       console.error('[lesson-phase1] enhancement failed', error);

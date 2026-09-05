@@ -20,7 +20,7 @@ const lessonIds = Object.keys(lessonFiles);
 
 const meta = json('json/project-meta.json');
 if (meta.app !== 'AP Study Guide') fail('project name must be AP Study Guide');
-if (meta.guide?.repository !== 'EliteMay/web-project-guide' || meta.guide?.version !== '1.16.0') fail('current Guide adoption metadata is stale');
+if (meta.guide?.repository !== 'EliteMay/web-project-guide' || meta.guide?.version !== '1.17.0') fail('current Guide adoption metadata is stale');
 for (const profile of ['STATIC','DATA','LEARNING','TOOL','PUBLIC-CONTENT']) if (!(meta.profiles || []).includes(profile)) fail(`missing profile ${profile}`);
 if (Number(meta.phase?.active) !== 1 || meta.phase?.status !== 'in-progress' || meta.phase?.sourceOfTruth !== 'REQUIREMENTS.md') fail('Phase 1 state metadata invalid');
 

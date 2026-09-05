@@ -40,6 +40,29 @@ Phase 1 Foundation Pilot専用。
 
 収録済み公開公式問題へ直接MappingできないFoundation Lessonが残る間は、Validator自体がPilotをCompleteへ変えない。
 
+### `validate-phase1-algorithm.mjs`
+
+Phase 1 Algorithm / Programming Pilot専用。
+
+対象: `ALG-01`〜`ALG-11` / `PROG-01`〜`PROG-04`
+
+検証:
+
+- 現行Algorithm / Programming Lesson集合とPhase 1 Overlayの1対1 Coverage
+- 旧Lesson ID / Unit / File Path維持
+- 重要度 / 頻出度 / APでの見られ方
+- 前提 / 関連Lessonの実在
+- 関連用語
+- Direct Practiceの実在と双方向Mapping
+- 公開公式問題Refの実在とLesson Mapping
+- 本文Depth / よくある誤解 / 末尾確認問題
+- 2つのInline Check
+- `json/migrations/lesson-phase1-algorithm-r27.json` のIdentity Migration
+- `json/curriculum/audits/algorithm-phase1-r27.json` のPilot / Pending Review
+- `json/phase1/index.json` からのLazy Overlay Runtime
+
+補助範囲Reviewや公開公式問題Mapping不足が残る間はUnit Complete扱いにしない。
+
 ### `validate-audits.mjs`
 
 System / Management / Database / Networkの監査ID・移行先を検証。
@@ -108,7 +131,7 @@ Lesson / Practice / Case件数を各Manifest / Indexから集計し、Progress�
 主な検証:
 
 - `AP Study Guide`
-- Guide 1.16.0
+- Guide 1.17.0
 - `STATIC + DATA + LEARNING + TOOL + PUBLIC-CONTENT`
 - Phase 1 `in-progress`
 - Central Loader
@@ -116,6 +139,7 @@ Lesson / Practice / Case件数を各Manifest / Indexから集計し、Progress�
 - Generic Unit Hub
 - Action-first Home
 - 横断検索
+- Phase 1 Lazy Overlay Runtime
 - Dynamic Count
 - Backup Key別Validation / Rollback
 - Accessible Mobile Drawer
@@ -128,36 +152,42 @@ Lesson / Practice / Case件数を各Manifest / Indexから集計し、Progress�
 
 ## Browser Smoke
 
-`tests/e2e-smoke.mjs`
+### `tests/e2e-smoke.mjs`
 
-Playwright Chromiumで実ブラウザ操作する。
+Playwright Chromiumで現行Product全体の主要Browser操作を確認する。
 
-現在の主要検証:
+主な検証:
 
-1. Product Metadata / Guide 1.16.0 / LEARNING Profile / Phase 1確認
+1. Product Metadata / Guide 1.17.0 / LEARNING Profile / Phase 1
 2. Home Unit数をCurriculum Dataから取得して描画数と比較
 3. Homeの主要9 Actionと横断検索Launcher
 4. Home Finderの未知QueryをCross Searchへ送る
 5. Diagnostics Error / Network / Breadcrumb / Query Sanitization
-6. Cross SearchでLesson ID完全一致
-7. Cross Searchで用語検索
-8. Cross SearchでPractice ID検索
-9. Glossary検索 / Lazy Detail
-10. Generic Unit Hub
-11. Current Lesson集合すべてにDirect Practice参照があること
-12. Lesson→Practice実遷移
-13. `FND-02`のLearning Map / 重要度 / 頻出度 / Pilot表示
-14. `FND-02`のInline Check動作
-15. 末尾確認を誤答してMasteredにならないこと
-16. Written Practice / Caseの空欄Guard
-17. 320px Home / Search / Foundation Lesson / Glossary / Diagnosticsの横Overflow
-18. Mobile Drawer `inert` / Escape
-19. 壊れた旧BackupのImport拒否
-20. 旧`AP Study Notes`形式の正しいBackupをImportできること
-21. 旧Backup由来HTML文字列を実行しないこと
-22. Legacy Import成功をDiagnostics Breadcrumbへ記録
-23. 404 Recovery
-24. Browser Console / Page Errorなし
+6. Cross Search Lesson / Term / Practice
+7. Glossary検索 / Lazy Detail
+8. Generic Unit Hub
+9. Current Lesson集合すべてのDirect Practice Coverage
+10. Lesson→Practice実遷移
+11. Foundation Learning Map / Metadata / Inline Check
+12. Written Practice / Case Guard
+13. 320px主要Route横Overflow
+14. Mobile Drawer `inert` / Escape
+15. 壊れたBackup拒否 / 旧Backup互換 / XSS防止
+16. Diagnostics / 404 Recovery
+17. Browser Console / Page Errorなし
+
+### `tests/e2e-phase1-algorithm.mjs`
+
+Algorithm / Programming Phase 1のBrowser専用Regression。
+
+- `ALG-01` の重要度 / 頻出度 / Pilot Chip
+- Learning Map / 前提Lesson / Direct Practice
+- Overlay Inline Checkの実操作
+- `ALG-10` の2025春公開問題Mapping
+- `PROG-03` のOverlay Metadata / Practice
+- Cross Searchから`ALG-10`へ到達
+- 320pxで`ALG-10` / `PROG-03`に横Overflowなし
+- Browser Console / Page Errorなし
 
 ## Visual Review
 
@@ -165,9 +195,10 @@ Playwright Chromiumで実ブラウザ操作する。
 
 Desktop 1280pxとMobile 390pxで主要RouteをScreenshot化する。
 
-Phase 1で追加した対象:
+Phase 1で重要な対象:
 
 - `html/lesson.html?id=FND-02`
+- `html/lesson.html?id=ALG-01`
 - `html/search.html?q=FND-02`
 - `html/search.html?q=OAuth`
 
@@ -199,15 +230,16 @@ Schema自体を変更する場合は別Migrationを用意する。
 
 1. JavaScript Syntax
 2. Basic JSON / References
-3. Phase 1 Foundation Pilot / Migration / Rename Compatibility
-4. Domain Audits
-5. Curriculum / Practice / Case / Mock / Official / Progress
-6. Runtime Quality
-7. Glossary
+3. Phase 1 Foundation Pilot
+4. Phase 1 Algorithm / Programming Pilot
+5. Domain Audits
+6. Curriculum / Practice / Case / Mock / Official / Progress
+7. Runtime Quality / Glossary
 8. Playwright Chromium Install
-9. Browser Smoke
-10. Visual Review
-11. Screenshot Artifact Upload
+9. Product Browser Smoke
+10. Algorithm Phase 1 Browser Smoke
+11. Visual Review
+12. Screenshot Artifact Upload
 
 ## CIで完全には保証しないもの
 

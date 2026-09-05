@@ -3,7 +3,7 @@
     "schemaVersion": 1,
     "version": "2026.08.30-v1",
     "title": "AP 最新公開公式問題 Lesson対応表",
-    "policy": "2026年度CBTの実問題はIPA非公開。最新の公開済みフル問題である2025年度春期・秋期の午後22大問を、問題文を転載せずテーマ要約と関連Lessonへ対応付ける。対応付けはAP Study Notes独自分析でありIPA公式分類ではない。",
+    "policy": "2026年度CBTの実問題はIPA非公開。最新の公開済みフル問題である2025年度春期・秋期の午後22大問を、問題文を転載せずテーマ要約と関連Lessonへ対応付ける。対応付けはAP Study Guide独自分析でありIPA公式分類ではない。",
     "currentExamYear": 2026,
     "currentMethod": "CBT",
     "currentSubjectNames": ["科目A", "科目B"],

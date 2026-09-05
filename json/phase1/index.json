@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "schemaVersion": 1,
+    "policy": "Phase 1の補助Contractを既存Lesson本文から分離し、Lesson表示時に必要なUnitだけ遅延読込する。既存Lesson JSONへ同じMetadataを大量複製しない。"
+  },
+  "units": [
+    {
+      "unitId": "algorithm-programming",
+      "status": "pilot",
+      "file": "json/phase1/algorithm-programming-r27.json"
+    }
+  ]
+}

@@ -25,6 +25,8 @@ jobs:
         run: node tests/validate.mjs
       - name: Validate Phase 1 foundation pilot
         run: node tests/validate-phase1-foundation.mjs
+      - name: Validate Phase 1 algorithm pilot
+        run: node tests/validate-phase1-algorithm.mjs
       - name: Validate domain audits
         run: node tests/validate-audits.mjs
       - name: Validate Security 501-term audit
@@ -57,6 +59,7 @@ jobs:
         run: |
           python3 -m http.server 4173 >/tmp/ap-study-http.log 2>&1 &
           node tests/e2e-smoke.mjs
+          node tests/e2e-phase1-algorithm.mjs
           node tests/visual-review.mjs
       - name: Upload visual review screenshots
         if: always()

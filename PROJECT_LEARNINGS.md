@@ -169,6 +169,19 @@
 - Guide candidate: yes
 - Guide note: RenameとSchema Migrationを不要に結合しない成功例。
 
+### PL-S-004 既存教材が十分な場合は横断Contractを遅延Overlayする
+
+- Date: 2026-09-06
+- Goal / Problem: Algorithm / Programmingの15 Lessonは本文品質が既に高い一方、Phase 1共通Contractだけが不足していた。15個の大きなLesson JSONを一括書換えすると、本文差分・競合・重複Metadata・Migration Riskが不必要に増える。
+- Adopted Pattern: `json/phase1/index.json` を小さなManifestにし、Unit単位の補助JSONへ importance / frequency / examFocus / 関連導線 / inlineChecks をまとめ、`js/lesson-phase1.js` が該当Lesson表示時だけ必要Unitを遅延読込してOverlayする。
+- Why it worked: Lesson ID・本文・URL・Storageを触らずに横断的な学習Contractを追加でき、Foundationの埋込み方式とも同じRuntimeで共存できる。次Unitでも同じ仕組みを再利用できる。
+- Trade-off: Base LessonとOverlayが2つのData Sourceになるため、1対1 Coverage・参照整合・MigrationをValidatorで強制する必要がある。Lesson Pageでは小さなPhase 1 Index Fetchが1回増える。
+- Reuse when: 既存Lesson本文が十分で、複数Lessonへ同じ補助Metadata / UI Contractだけを追加したいとき。
+- Avoid when: Lesson本文自体の再構成、ID merge / split、保存意味の変更が主目的の場合。その場合は正本SchemaとMigrationを直接更新する。
+- Related files / tests: `json/phase1/index.json`, `json/phase1/algorithm-programming-r27.json`, `js/lesson-phase1.js`, `tests/validate-phase1-algorithm.mjs`, `tests/e2e-phase1-algorithm.mjs`
+- Guide candidate: yes
+- Guide note: 大規模既存教材へ横断Contractを追加する際のCompanion Data / Lazy Overlay Pattern候補。
+
 ---
 
 ## Guide Feedback Queue
@@ -181,3 +194,4 @@
 | PL-F-006 | failure | Requirements変更時はTest Oracleのstale fixed valueも同時更新する | Product / Guide / Unit固定値が旧仕様を強制 | GuideのRequirements変更Checklist候補として検討 |
 | PL-S-002 | success | Legacy互換層と通常導線の分離 | 旧URL維持 + Unified Hub | 複数Projectで再利用後に共通化判断 |
 | PL-S-003 | success | Product RenameとStorage Migrationを不要に結合しない | 新名称 + 旧Backup互換 + Storage Key維持 | Rename案件のData互換Pattern候補 |
+| PL-S-004 | success | 既存教材へ横断ContractをCompanion Dataとして遅延Overlayする | 15 Lesson本文を維持したままPhase 1 Contractを追加 | 次のPhase 1 Unitでも再利用し、共通Guide化の妥当性を確認 |
